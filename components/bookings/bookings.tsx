@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { ScrollView, View, Image } from "react-native";
+import { ScrollView, View, Image, TouchableOpacity } from "react-native";
 import { Text } from "native-base";
 import AppCard from "../reusables/card";
 
 class Bookings extends Component<any, any> {
   render() {
+    const { navigation } = this.props;
     return (
       <ScrollView style={{ padding: 20 }}>
         <View
@@ -43,7 +44,9 @@ class Bookings extends Component<any, any> {
           <Text style={{ color: "#717171" }}>Previous</Text>
         </View>
 
+        <TouchableOpacity onPress={() => navigation.navigate("Booking-Details")}>
         <AppCard />
+        </TouchableOpacity>
         <AppCard />
         <AppCard />
         <AppCard />

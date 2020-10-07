@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { View, ScrollView, Image, Text } from "react-native";
+import { View, ScrollView, Image, Text, TouchableOpacity } from "react-native";
 import ServiceCard from "../reusables/serviceCard";
 
 class Services extends Component<any, any> {
   render() {
+    const { navigation } = this.props; 
     return (
       <ScrollView style={{ padding: 20 }}>
         <View
@@ -42,7 +43,9 @@ class Services extends Component<any, any> {
           <Text style={{ color: "#717171" }}>Favorite</Text>
         </View>
 
-        <ServiceCard />
+        <TouchableOpacity onPress={() => navigation.navigate('Service-Booking')}>
+          <ServiceCard />
+        </TouchableOpacity>
         <ServiceCard />
         <ServiceCard />
         <ServiceCard />
