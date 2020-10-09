@@ -2,8 +2,38 @@ import React, { Component } from "react";
 import { View, ScrollView, Text, Image } from "react-native";
 import { Content, Item, Input, Icon, Button } from "native-base";
 import styles from "./login.stylesheet";
+import { ILogin } from "../../models/ILogin";
+import authService from "../../http-services/index";
+import {AsyncStorage} from 'react-native';
+
 
 class Login extends Component<any, any> {
+
+  state = {
+      username: "",
+      password: "",
+  };
+
+  async login(){
+    const {username, password} = this.state;
+    const {navigation} = this.props;
+
+    const payload: ILogin = { username, password};
+    console.log(payload);
+    const response = await authService.login(payload);
+
+    if(response.ok) {
+      await AsyncStorage.setItem('customer', JSON.stringify(response.data));
+      navigation.navigate("Home")
+    }
+    else {
+      console.log(response.data);
+    }
+  
+  };
+
+  
+
   render() {
     const { navigation } = this.props;
     return (
@@ -18,7 +48,10 @@ class Login extends Component<any, any> {
         <View style={{ paddingHorizontal: 40 }}>
           <Item style={{ borderBottomColor: "#267CE1", borderBottomWidth: 1 }}>
             <Icon active name="person" style={{ color: "#267CE1" }} />
-            <Input placeholder="Email" />
+            <Input
+             placeholder="Email" 
+             onChangeText={text => this.setState({username: text})}
+             />
           </Item>
 
           <Item
@@ -29,7 +62,10 @@ class Login extends Component<any, any> {
             }}
           >
             <Icon active name="lock" style={{ color: "#267CE1" }} />
-            <Input placeholder="**************" />
+            <Input 
+            placeholder="**************"
+            onChangeText={text => this.setState({password: text})}
+            />
           </Item>
         </View>
 
@@ -56,7 +92,7 @@ class Login extends Component<any, any> {
         >
           <Button
             rounded
-            onPress={() => navigation.navigate("Home")}
+            onPress={() => this.login()}
             style={{
               backgroundColor: "#267CE1",
               width: "auto",
@@ -98,8 +134,7 @@ class Login extends Component<any, any> {
                 navigation.navigate("Register");
               }}
             >
-              {" "}
-              Register{" "}
+              Register
             </Text>
           </Text>
         </View>

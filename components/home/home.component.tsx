@@ -3,11 +3,52 @@ import { View, Text, Image, ScrollView } from "react-native";
 import { Card, CardItem, Body, Button } from "native-base";
 import styles from "./home.stylesheet";
 import AppCard from "../reusables/card";
-import Tabs from "../reusables/bottomTabs";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
+import {AsyncStorage} from 'react-native';
 
-class Home extends Component {
+
+class Home extends Component<any, any> {
+
+  state = {
+    customer: {}
+  }
+
+  async getCustomerData() {
+    const {customer} = this.state;
+
+    try {
+    const value = await AsyncStorage.getItem('customer');
+      if(value !== null) {
+        this.setState({customer: JSON.parse(value)});
+      }
+  }
+    catch(error) {
+      console.error(error);
+    }
+
+    console.log(this.state.customer);
+
+  }
+
+  componentDidMount() {
+    const {navigation} = this.props;
+    if(this.isAuthenticated() == false) {
+      navigation.navigate("Login");
+    }
+    this.getCustomerData();
+
+  }
+
+
+ isAuthenticated() {
+   const value = AsyncStorage.getItem('customer');
+
+   if(value && value !== null) {
+     return true;
+   }
+
+   return false;
+ }
+
   render() {
     return (
       <ScrollView>
