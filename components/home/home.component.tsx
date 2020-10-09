@@ -1,16 +1,17 @@
 import React, { Component } from "react";
-import { View, Text, Image, ScrollView } from "react-native";
+import { View, Text, Image, ScrollView, TouchableOpacity } from "react-native";
 import { Card, CardItem, Body, Button } from "native-base";
 import styles from "./home.stylesheet";
 import AppCard from "../reusables/card";
 import {AsyncStorage} from 'react-native';
+import { ICustomer } from "../../models/ICustomer";
 
+interface HomeState {
+  customer: ICustomer
+}
 
-class Home extends Component<any, any> {
+class Home extends Component<any, HomeState> {
 
-  state = {
-    customer: {}
-  }
 
   async getCustomerData() {
     const {customer} = this.state;
@@ -25,7 +26,6 @@ class Home extends Component<any, any> {
       console.error(error);
     }
 
-    console.log(this.state.customer);
 
   }
 
@@ -50,68 +50,76 @@ class Home extends Component<any, any> {
  }
 
   render() {
+    const { navigation } = this.props;
+
     return (
-      <ScrollView>
+      <ScrollView style={{ backgroundColor: "#fff" }}>
         <View style={styles.container}>
-          <Card
-            style={{ borderRadius: 16, shadowOffset: { width: 0, height: 0 } }}
-          >
-            <View
+          <TouchableOpacity onPress={() => navigation.navigate("Edit-Profile")}>
+            <Card
+              pointerEvents="none"
               style={{
-                backgroundColor: "#67FF76",
-                padding: 20,
                 borderRadius: 16,
+                shadowOffset: { width: 0, height: 0 },
               }}
             >
-              <View style={{ flexDirection: "row", marginVertical: 20 }}>
-                <Image
-                  source={require("../../assets/cleaner.jpg")}
-                  style={{ width: 50, height: 50, borderRadius: 50 }}
-                />
-                <View style={{ paddingVertical: 8, paddingHorizontal: 15 }}>
-                  <Text
-                    style={{
-                      color: "#fff",
-                      textShadowOffset: { width: 1, height: 1 },
-                      fontWeight: "700",
-                      fontSize: 15,
-                    }}
-                  >
-                    Aderoju Israel
-                  </Text>
-                  <View style={{ flexDirection: "row", paddingTop: 10 }}>
-                    <Image
-                      source={require("../../assets/user_location_icon.png")}
-                    />
+              <View
+                style={{
+                  backgroundColor: "#67FF76",
+                  padding: 20,
+                  borderRadius: 16,
+                }}
+              >
+                <View style={{ flexDirection: "row", marginVertical: 20 }}>
+                  <Image
+                    source={require("../../assets/cleaner.jpg")}
+                    style={{ width: 50, height: 50, borderRadius: 50 }}
+                  />
+                  <View style={{ paddingVertical: 8, paddingHorizontal: 15 }}>
                     <Text
                       style={{
                         color: "#fff",
+                        textShadowOffset: { width: 1, height: 1 },
                         fontWeight: "700",
-                        paddingTop: 2,
-                        paddingLeft: 3,
+                        fontSize: 15,
                       }}
                     >
-                      Address
+                      {'helo'}
                     </Text>
+                    <View style={{ flexDirection: "row", paddingTop: 10 }}>
+                      <Image
+                        source={require("../../assets/user_location_icon.png")}
+                      />
+                      <Text
+                        style={{
+                          color: "#fff",
+                          fontWeight: "700",
+                          paddingTop: 2,
+                          paddingLeft: 3,
+                        }}
+                      >
+                        Address
+                      </Text>
+                    </View>
                   </View>
                 </View>
-              </View>
 
-              <View
-                style={{ flexDirection: "row", justifyContent: "flex-end" }}
-              >
-                <Image
-                  source={require("../../assets/wallet_icon.png")}
-                  style={{ marginTop: 5 }}
-                />
-                <Text
-                  style={{ color: "#fff", fontWeight: "700", fontSize: 35 }}
+                <View
+                  style={{ flexDirection: "row", justifyContent: "flex-end" }}
                 >
-                  1,500
-                </Text>
+                  <Image
+                    source={require("../../assets/wallet_icon.png")}
+                    style={{ marginTop: 5 }}
+                  />
+                  <Text
+                    style={{ color: "#fff", fontWeight: "700", fontSize: 35 }}
+                  >
+                    1,500
+                  </Text>
+                </View>
               </View>
-            </View>
-          </Card>
+            </Card>
+          </TouchableOpacity>
 
           <View style={{ padding: 20 }}>
             <View

@@ -22,9 +22,16 @@ import Bookings from "./components/bookings/bookings";
 import Services from "./components/services/services";
 import Notifications from "./components/notifications/notifications";
 import Logout from "./components/logout/logout";
+import FundWallet from "./components/fund-wallet/fundWallet";
+import EditProfileComponent from "./components/edit-profile/edit-profile";
+import BookingDetails from "./components/booking-details/booking-details";
+import ServiceBooking from "./components/service-booking/service-booking";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
+const HomeStack = createStackNavigator();
+const BookingStack = createStackNavigator();
+const ServiceStack = createStackNavigator();
 
 function BottomNav() {
   return (
@@ -36,7 +43,7 @@ function BottomNav() {
     >
       <Tab.Screen
         name="Home"
-        component={Home}
+        component={HomeNav}
         options={{
           tabBarLabel: "Home",
           tabBarIcon: () => <AntDesign name="home" size={24} />,
@@ -44,7 +51,7 @@ function BottomNav() {
       />
       <Tab.Screen
         name="Bookings"
-        component={Bookings}
+        component={BookingNav}
         options={{
           tabBarLabel: "Bookings",
           tabBarIcon: () => <AntDesign name="book" size={24} />,
@@ -53,7 +60,7 @@ function BottomNav() {
 
       <Tab.Screen
         name="Services"
-        component={Services}
+        component={ServiceNav}
         options={{
           tabBarLabel: "Services",
           tabBarIcon: () => (
@@ -66,6 +73,7 @@ function BottomNav() {
         component={Notifications}
         options={{
           tabBarLabel: "Notifications",
+          tabBarBadge: "3",
           tabBarIcon: () => (
             <Ionicons name="ios-notifications-outline" size={24} />
           ),
@@ -83,6 +91,59 @@ function BottomNav() {
         }}
       />
     </Tab.Navigator>
+  );
+}
+
+function HomeNav() {
+  return (
+    <View style={styles.container}>
+      <HomeStack.Navigator>
+        <HomeStack.Screen
+          name="Home"
+          component={Home}
+          options={{ headerShown: false }}
+        />
+        <HomeStack.Screen
+          name="Edit-Profile"
+          component={EditProfileComponent}
+          options={{ headerShown: false }}
+        />
+      </HomeStack.Navigator>
+    </View>
+  );
+}
+
+function BookingNav() {
+  return (
+    <BookingStack.Navigator>
+      <BookingStack.Screen
+        name="Bookings"
+        component={Bookings}
+        options={{ headerShown: false }}
+      />
+      <BookingStack.Screen
+        name="Booking-Details"
+        component={BookingDetails}
+        options={{ headerShown: false }}
+      />
+    </BookingStack.Navigator>
+  );
+}
+
+function ServiceNav() {
+  return (
+    <ServiceStack.Navigator>
+      <ServiceStack.Screen
+        name="services"
+        component={Services}
+        options={{ headerShown: false }}
+      />
+      <ServiceStack.Screen
+        name="Service-Booking"
+        component={ServiceBooking}
+        options={{ headerShown: false }}
+      />
+    </ServiceStack.Navigator>
   );
 }
 

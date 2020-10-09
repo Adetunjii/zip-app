@@ -7,7 +7,8 @@ import authService from "../../http-services/index";
 import {AsyncStorage} from 'react-native';
 
 
-class Login extends Component<any, any> {
+
+class Login extends Component<any, ILogin> {
 
   state = {
       username: "",
@@ -32,7 +33,6 @@ class Login extends Component<any, any> {
   
   };
 
-  
 
   render() {
     const { navigation } = this.props;
