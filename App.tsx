@@ -14,6 +14,7 @@ import Welcome from "./components/welcome/welcome";
 import Login from "./components/login/login";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import {createSwitchNavigator} from 'react-navigation'
 import Register from "./components/register/register";
 import Home from "./components/home/home.component";
 import Tabs from "./components/reusables/bottomTabs";
@@ -28,6 +29,7 @@ import BookingDetails from "./components/booking-details/booking-details";
 import ServiceBooking from "./components/service-booking/service-booking";
 
 const Stack = createStackNavigator();
+const LoginStack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
 const BookingStack = createStackNavigator();
@@ -101,7 +103,7 @@ function HomeNav() {
         <HomeStack.Screen
           name="Home"
           component={Home}
-          options={{ headerShown: false }}
+          options={{ headerShown: false, }}
         />
         <HomeStack.Screen
           name="Edit-Profile"
@@ -111,6 +113,15 @@ function HomeNav() {
       </HomeStack.Navigator>
     </View>
   );
+}
+
+function LoginNav() {
+  return(
+    <LoginStack.Navigator>
+      <LoginStack.Screen name="/" component={Welcome} options={{headerShown: false, header: undefined}} />
+      <LoginStack.Screen name="Login" component={Login} options={{headerShown: false}}/>
+  </LoginStack.Navigator>
+  )
 }
 
 function BookingNav() {
@@ -172,15 +183,10 @@ export default class App extends Component<any, any> {
       <NavigationContainer>
         <View style={styles.container}>
           <Stack.Navigator>
-            <Stack.Screen
-              name="Welcome"
-              component={Welcome}
-              options={{ headerShown: false }}
-            ></Stack.Screen>
-
+      
             <Stack.Screen
               name="Login"
-              component={Login}
+              component={LoginNav}
               options={{ headerShown: false }}
             ></Stack.Screen>
 

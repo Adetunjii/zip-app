@@ -12,9 +12,11 @@ interface HomeState {
 
 class Home extends Component<any, HomeState> {
 
+    state = {
+      
+    }
 
   async getCustomerData() {
-    const {customer} = this.state;
 
     try {
     const value = await AsyncStorage.getItem('customer');
@@ -38,14 +40,12 @@ class Home extends Component<any, HomeState> {
 
   }
 
-
  isAuthenticated() {
    const value = AsyncStorage.getItem('customer');
 
    if(value && value !== null) {
      return true;
    }
-
    return false;
  }
 

@@ -1,8 +1,18 @@
 import React, { Component } from "react";
 import { View, ScrollView, Image, Text, TouchableOpacity } from "react-native";
 import ServiceCard from "../reusables/serviceCard";
+import authService from '../../http-services/index';
 
 class Services extends Component<any, any> {
+
+  state = {
+    services: ''
+  }
+
+  async fetchServices() {
+    await authService.getServices()
+  }
+
   render() {
     const { navigation } = this.props; 
     return (

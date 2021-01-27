@@ -19,6 +19,9 @@
     "ios": {
       "supportsTablet": true
     },
+    "android": {
+      "package": "com.almighty.zip"
+    },
     "web": {
       "favicon": "./assets/favicon.png"
     },

@@ -13,6 +13,7 @@ class Login extends Component<any, ILogin> {
   state = {
       username: "",
       password: "",
+      errorText: ''
   };
 
   async login(){
@@ -28,7 +29,8 @@ class Login extends Component<any, ILogin> {
       navigation.navigate("Home")
     }
     else {
-      console.log(response.data);
+      this.setState({ errorText: "Incorrect username or password"})
+
     }
   
   };
@@ -49,7 +51,7 @@ class Login extends Component<any, ILogin> {
           <Item style={{ borderBottomColor: "#267CE1", borderBottomWidth: 1 }}>
             <Icon active name="person" style={{ color: "#267CE1" }} />
             <Input
-             placeholder="Email" 
+             placeholder="username" 
              onChangeText={text => this.setState({username: text})}
              />
           </Item>
@@ -63,6 +65,8 @@ class Login extends Component<any, ILogin> {
           >
             <Icon active name="lock" style={{ color: "#267CE1" }} />
             <Input 
+            secureTextEntry={true}
+            
             placeholder="**************"
             onChangeText={text => this.setState({password: text})}
             />
@@ -79,6 +83,15 @@ class Login extends Component<any, ILogin> {
           <Text style={{ color: "#267CE1", fontWeight: "700" }}>
             Forgot Password?
           </Text>
+        </View>
+
+        <View style={{flex: 1, justifyContent: "center", flexDirection: "row"}}>
+         { (this.state.errorText === '') ? (<React.Fragment></React.Fragment>) : (
+            <View style={{backgroundColor: "#ffb99a", padding: 5, borderRadius: 5}}>
+          <Text style={{color: "red" }}>{this.state.errorText}</Text>
+              </View>
+          )
+         }
         </View>
 
         <View
@@ -127,16 +140,17 @@ class Login extends Component<any, ILogin> {
           }}
         >
           <Text>
-            New to ZIP CarWash?
-            <Text
-              style={{ color: "#267CE1", padding: 10 }}
+            New to ZIP CarWash?  
+          </Text>
+
+          <Text
+              style={{ color: "#267CE1", padding: 5 }}
               onPress={() => {
                 navigation.navigate("Register");
               }}
             >
               Register
             </Text>
-          </Text>
         </View>
       </ScrollView>
     );
